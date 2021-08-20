@@ -1,0 +1,8 @@
+UNHANDLED EXCEPTIONS FROM PROCESS 41180:
+=====================
+20/08/2021 10:05:02
+System.IO.IOException: Pipe is broken.
+   at System.IO.Pipes.NamedPipeServerStream.CheckConnectOperationsServer()
+   at System.IO.Pipes.NamedPipeServerStream.BeginWaitForConnection(AsyncCallback callback, Object state)
+   at Microsoft.Build.BackEnd.NodeEndpointOutOfProcBase.PacketPumpProc()
+===================

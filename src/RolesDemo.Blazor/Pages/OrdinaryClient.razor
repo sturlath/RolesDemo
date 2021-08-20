@@ -1,0 +1,24 @@
+﻿@page "/ordinary-client"
+@attribute [Authorize(RoleDemoPermissions.ClientUserPages)]
+@using RolesDemo.Localization
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@using Blazorise.Components
+@using RolesDemo.Permissions
+@using Volo.Abp.BlazoriseUI.Components
+@using Volo.Abp.AspNetCore.Components.Web.Theming.Layout
+@using Volo.Abp.ObjectMapping
+@using Volo.Abp.AspNetCore.Components.Messages
+
+
+@inject IStringLocalizer<RolesDemoResource> L
+@inject IAuthorizationService AuthorizationService
+@inject IUiMessageService UiMessageService
+@inject NavigationManager NavigationManager
+@inject IObjectMapper ObjectMapper
+
+
+
+<h3>If you see this you are a user that has registered without providing a tenant and this is the only page you should have access to!</h3>
+
+
