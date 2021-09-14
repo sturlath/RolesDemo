@@ -41,7 +41,7 @@ namespace RolesDemo.Users
         [UnitOfWork]
         public async Task HandleEventAsync(EntityCreatedEventData<IdentityUser> eventData)
         {
-            //Not hit when registering a user with no tenant...
+            //Not hit when registering a user with no tenant...but does when logged in as a tenant!
             await GivePermissionToUser(eventData.Entity);
         }
 
