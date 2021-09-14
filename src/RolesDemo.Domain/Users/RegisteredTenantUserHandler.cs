@@ -17,9 +17,9 @@ using IdentityRole = Volo.Abp.Identity.IdentityRole;
 
 namespace RolesDemo.Users
 {
-    public class RegisteredUserHandler : IDistributedEventHandler<EntityCreatedEto<UserEto>>, ITransientDependency
+    public class RegisteredTenantUserHandler : IDistributedEventHandler<EntityCreatedEto<UserEto>>, ITransientDependency
     {
-        public RegisteredUserHandler(IdentityUserManager identityUserManager,
+        public RegisteredTenantUserHandler(IdentityUserManager identityUserManager,
                             IPermissionManager permissionManager,
                             ICurrentTenant currentTenant,
                             ITenantRepository tenantRepository,
@@ -45,22 +45,11 @@ namespace RolesDemo.Users
         private readonly IGuidGenerator guidGenerator;
         private readonly IIdentityRoleRepository identityRoleRepository;
 
-
-        //I don't know why but I'm not hitting this in debug mode
         [UnitOfWork]
         public async Task HandleEventAsync(EntityCreatedEto<UserEto> eventData)
         {
-            var isTenant = eventData.Entity.TenantId.HasValue;
-
-            if (isTenant)
-            {              
-                await GivePermissionToTenant(eventData); //<-- fails
-                //await GivePermissionToTenant_change_to_null(eventData); //<-- fails
-            }
-            else
-            {
-                await GivePermissionToUser(eventData);
-            }
+            await GivePermissionToTenant(eventData); 
+            //await GivePermissionToTenant_change_to_null(eventData); 
         }
 
         private async Task GivePermissionToTenant(EntityCreatedEto<UserEto> eventData)
@@ -77,7 +66,7 @@ namespace RolesDemo.Users
                 var stillCantFindTheRoleThisIsNull = await identityRoleRepository.FindByNormalizedNameAsync(lookupNormalizer.NormalizeName(RolesDemoConstants.SelfServiceTenantClientRole));
 
                 // this will fail because no role is found
-               await AddRoleToUser(eventData.Entity.Id /*or eventData.Entity.TenantId*/, stillCantFindTheRoleThisIsNull);
+                await AddRoleToUser(eventData.Entity.Id /*or eventData.Entity.TenantId*/, stillCantFindTheRoleThisIsNull);
             }
         }
 
@@ -108,17 +97,6 @@ namespace RolesDemo.Users
             //and if role found this fails, with "There is no such an entity"
             var userJustCreated = await identityUserManager.GetByIdAsync(entityId.Value);
             var result = await identityUserManager.AddToRoleAsync(userJustCreated, RolesDemoConstants.SelfServiceTenantClientRole);
-        }
-
-        private async Task GivePermissionToUser(EntityCreatedEto<UserEto> eventData)
-        {
-            //This is just to show that I can add a USER (not Tenant) to role
-            var userJustCreated = await identityUserManager.GetByIdAsync(eventData.Entity.Id);
-            var result = await identityUserManager.AddToRoleAsync(userJustCreated, RolesDemoConstants.OrdinaryClientRole);
-
-            //For some reason this throws this error (when running migration) but just in this demo app! I can´t see my other project is doing anything differently!
-            //"Caught an exception while publishing the event 'Volo.Abp.Domain.Entities.Events.EntityCreatedEventData"
-            //"A DbContext can only be created inside a unit of work! Volo.Abp.AbpException: A DbContext can only be created inside a unit of work!"
         }
     }
 }
