@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using RolesDemo.Permissions;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,8 @@ namespace RolesDemo.Users
                             ITenantRepository tenantRepository,
                             IGuidGenerator guidGenerator,
                             IIdentityRoleRepository identityRoleRepository,
-                            ILookupNormalizer lookupNormalizer
+                            ILookupNormalizer lookupNormalizer,
+                            ILogger<RegisteredTenantUserHandler> logger
                            )
         {
             this.identityUserManager = identityUserManager;
@@ -35,12 +37,14 @@ namespace RolesDemo.Users
             this.tenantRepository = tenantRepository;
             this.guidGenerator = guidGenerator;
             this.identityRoleRepository = identityRoleRepository;
+            this.logger = logger;
         }
 
         public IPermissionManager permissionManager { get; }
         private readonly IdentityUserManager identityUserManager;
         private readonly ICurrentTenant currentTenant;
         private readonly ILookupNormalizer lookupNormalizer;
+        private readonly ILogger<RegisteredTenantUserHandler> logger;
         private readonly ITenantRepository tenantRepository;
         private readonly IGuidGenerator guidGenerator;
         private readonly IIdentityRoleRepository identityRoleRepository;
@@ -48,6 +52,7 @@ namespace RolesDemo.Users
         [UnitOfWork]
         public async Task HandleEventAsync(EntityCreatedEto<UserEto> eventData)
         {
+            logger.LogWarning("This gets logged out put never hit as a brakepoint....");
             await GivePermissionToTenant(eventData); 
             //await GivePermissionToTenant_change_to_null(eventData); 
         }

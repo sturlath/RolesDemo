@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using RolesDemo.Permissions;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,14 @@ namespace RolesDemo.Users
 {
     public class RegisteredIdentityUserHandler : IDistributedEventHandler<EntityCreatedEventData<IdentityUser>>, ITransientDependency
     {
+        private readonly ILogger logger;
+
         public RegisteredIdentityUserHandler(IdentityUserManager identityUserManager,
                             IPermissionManager permissionManager,
                             IGuidGenerator guidGenerator,
                             IIdentityRoleRepository identityRoleRepository,
-                            ILookupNormalizer lookupNormalizer
+                            ILookupNormalizer lookupNormalizer,
+                            ILogger<RegisteredIdentityUserHandler> logger
                            )
         {
             this.identityUserManager = identityUserManager;
@@ -30,6 +34,7 @@ namespace RolesDemo.Users
             this.lookupNormalizer = lookupNormalizer;
             this.guidGenerator = guidGenerator;
             this.identityRoleRepository = identityRoleRepository;
+            this.logger = logger;
         }
 
         public IPermissionManager permissionManager { get; }
@@ -39,9 +44,12 @@ namespace RolesDemo.Users
         private readonly IIdentityRoleRepository identityRoleRepository;
 
         [UnitOfWork]
-        public async Task HandleEventAsync(EntityCreatedEventData<IdentityUser> eventData)
+        public virtual async Task HandleEventAsync(EntityCreatedEventData<IdentityUser> eventData)
         {
-            //Not hit when registering a user with no tenant...but does when logged in as a tenant!
+            //If you set a brakepoint here, its not hit when registering user from the main page
+            //BUT it gets hit when registering a user when logged in 
+            logger.LogInformation("This message is shown in the IdentiyServer console when registering user from the main page, BUT in the HOST console if you are logged in as tenant/host");
+
             await GivePermissionToUser(eventData.Entity);
         }
 
