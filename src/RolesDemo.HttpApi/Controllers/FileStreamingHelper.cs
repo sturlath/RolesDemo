@@ -35,7 +35,7 @@ namespace RolesDemo.Controllers
                 _defaultFormOptions.MultipartBoundaryLengthLimit);
             var reader = new MultipartReader(boundary, request.Body);
 
-            var section = await reader.ReadNextSectionAsync();
+            var section = await reader.ReadNextSectionAsync(); //<-- Exception thrown here --> "Unexpected end of Stream, the content may have already been read by another component."
             while (section != null)
             {
                 ContentDispositionHeaderValue contentDisposition;
