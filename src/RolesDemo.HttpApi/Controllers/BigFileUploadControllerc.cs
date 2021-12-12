@@ -34,6 +34,10 @@ namespace RolesDemo.Controllers
             {
                 //Always end here with
                 // "Unexpected end of Stream, the content may have already been read by another component."
+
+                // Asked for help on this here
+                // https://github.com/abpframework/abp/issues/10916
+                // https://support.abp.io/QA/Questions/2267/Problem-uploading-a-file-using-MultipartReader
                 throw;
             }
         }
