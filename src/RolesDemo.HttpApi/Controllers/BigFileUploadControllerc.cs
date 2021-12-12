@@ -14,7 +14,7 @@ namespace RolesDemo.Controllers
     {
         [IgnoreAntiforgeryToken]
         [DisableFormValueModelBinding]
-        [DisableRequestSizeLimit]
+        [DisableRequestSizeLimit] //or limit to size [RequestFormLimits(MultipartBodyLengthLimit = 20000L * 1024 * 1024)] //unit is bytes => 2000Mb/2GB
         [HttpPost("upload")]
         public async Task UploadFileAsync()
         {
