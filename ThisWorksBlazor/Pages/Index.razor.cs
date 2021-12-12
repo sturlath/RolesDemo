@@ -18,11 +18,11 @@ namespace ThisWorksBlazor.Pages
             {
                 var file = e.Files[0];
 
-                using (var ms = file.OpenReadStream(long.MaxValue))
+                using (var ms = file.OpenReadStream(file.Size))
                 {
                     var content = new MultipartFormDataContent();
                     content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
-                    content.Add(new StreamContent(ms, Convert.ToInt32(ms.Length)), "image", "filename");
+                    content.Add(new StreamContent(ms, Convert.ToInt32(ms.Length)), file.Type, file.Name);
                     using var client = new HttpClient();
                     //post the file like this since I had problems with passing MultipartFormDataContent to AppService
                     var postResult = await client.PostAsync("http://localhost:22547/api/app/bigfile/upload", content);
