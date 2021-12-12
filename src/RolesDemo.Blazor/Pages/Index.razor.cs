@@ -23,6 +23,8 @@ namespace RolesDemo.Blazor.Pages
                     var content = new MultipartFormDataContent();
                     content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
                     content.Add(new StreamContent(ms, Convert.ToInt32(ms.Length)), file.Type, file.Name);
+                    // add additional data https://brokul.dev/sending-files-and-additional-data-using-httpclient-in-net-core
+
                     using var client = new HttpClient();
                     //post the file like this since I had problems with passing MultipartFormDataContent to AppService
                     var postResult = await client.PostAsync("https://localhost:44365/api/app/bigfile/upload", content);
