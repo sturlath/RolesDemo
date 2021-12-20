@@ -17,6 +17,7 @@ using Volo.Abp.AspNetCore.Components.WebAssembly.BasicTheme;
 using Volo.Abp.Identity.Blazor.WebAssembly;
 using Volo.Abp.SettingManagement.Blazor.WebAssembly;
 using Volo.Abp.TenantManagement.Blazor.WebAssembly;
+using Syncfusion.Blazor;
 
 namespace RolesDemo.Blazor
 {
@@ -42,6 +43,13 @@ namespace RolesDemo.Blazor
             ConfigureUI(builder);
             ConfigureMenu(context);
             ConfigureAutoMapper(context);
+            ConfigureSyncFusion(context);
+        }
+
+        private void ConfigureSyncFusion(ServiceConfigurationContext context)
+        {
+            context.Services.AddSyncfusionBlazor();
+            //Syncfusion.Blazor.Licensing.SyncfusionLicenseProvider.RegisterLicense("YOUR LICENSE KEY");
         }
 
         private void ConfigureRouter(ServiceConfigurationContext context)

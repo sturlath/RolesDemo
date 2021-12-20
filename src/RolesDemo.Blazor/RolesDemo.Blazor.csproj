@@ -14,6 +14,7 @@
     <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.*" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.*" />
+    <PackageReference Include="Syncfusion.Blazor.Inputs" Version="19.4.0.38" />
   </ItemGroup>
 
   <ItemGroup>

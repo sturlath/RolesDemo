@@ -11,6 +11,9 @@ namespace RolesDemo.Blazor.Pages
         public Index()
         {
         }
+        private readonly string saveUrl = "https://localhost:44365/api/app/bigfile/Save";
+        private readonly string removeUrl = "https://localhost:44365/api/app/bigfile/Remove";
+
 
         private async Task OnFileUploadChanged(FileChangedEventArgs e)
         {
