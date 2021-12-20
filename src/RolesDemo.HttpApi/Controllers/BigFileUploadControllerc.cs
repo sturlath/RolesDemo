@@ -49,7 +49,7 @@ namespace RolesDemo.Controllers
         [HttpPost("[action]")]
         //[Produces("application/json")]
         //[Consumes("multipart/form-data")]
-        public virtual async Task Save(IList<IRemoteStreamContent> files) //Doesn't work with IList<IFormFile> either...
+        public virtual async Task Save(IList<IRemoteStreamContent> UploadRecording) //this parameter needs to be the same as ID in Index.razor! Syncfusion has updated their docs!
         {
             //files are always 0!!
 
