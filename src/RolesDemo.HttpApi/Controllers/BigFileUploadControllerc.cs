@@ -46,9 +46,9 @@ namespace RolesDemo.Controllers
             }
         }
 
-        //[HttpPost()]
-        //[Route("save")]
         [HttpPost("[action]")]
+        //[Produces("application/json")]
+        //[Consumes("multipart/form-data")]
         public virtual async Task Save(IList<IRemoteStreamContent> files)
         {
             //files are always 0!!
