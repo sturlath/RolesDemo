@@ -49,7 +49,7 @@ namespace RolesDemo.Controllers
         [HttpPost("[action]")]
         //[Produces("application/json")]
         //[Consumes("multipart/form-data")]
-        public virtual async Task Save(IList<IRemoteStreamContent> files)
+        public virtual async Task Save(IList<IRemoteStreamContent> files) //Doesn't work with IList<IFormFile> either...
         {
             //files are always 0!!
 
