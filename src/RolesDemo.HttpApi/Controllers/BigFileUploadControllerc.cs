@@ -51,31 +51,9 @@ namespace RolesDemo.Controllers
         //[Consumes("multipart/form-data")]
         public virtual async Task Save(IList<IRemoteStreamContent> UploadRecording) //this parameter needs to be the same as ID in Index.razor! Syncfusion has updated their docs!
         {
-            //files are always 0!!
-
-            long size = 0;
             try
             {
-                //foreach (var file in UploadFiles)
-                //{
-                //var filename = ContentDispositionHeaderValue
-                //        .Parse(file.ContentDisposition)
-                //        .FileName
-                //        .Trim('"');
-
-                // filename = Path.Combine(Path.GetTempPath(), $"{filename}");
-
-                ////tempFilename = filePath + $@"\{filename}";
-                //size += (int)file.Length;
-                //if (!System.IO.File.Exists(filename))
-                //{
-                //    using (FileStream fs = System.IO.File.Create(filename))
-                //    {
-                //        file.CopyTo(fs);
-                //        fs.Flush();
-                //    }
-                //}
-                //}
+                Response.Headers.Add("CustomHeader", "someContent");
             }
             catch (Exception e)
             {

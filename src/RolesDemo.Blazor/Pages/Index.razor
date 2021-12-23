@@ -16,7 +16,7 @@
     <div class="mb-5 text-center">
         <p class="align-middle">
             Syncfusion upload 0
-            <SfUploader ID="UploadRecording" AllowedExtensions=".mp4">
+            <SfUploader ID="UploadRecording" AllowedExtensions=".*"  Success="OnSuccess">
                 <UploaderAsyncSettings SaveUrl="@saveUrl" RemoveUrl=@removeUrl></UploaderAsyncSettings>
             </SfUploader>
         </p>

@@ -1,4 +1,5 @@
 ﻿using Blazorise;
+using Syncfusion.Blazor.Inputs;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -14,7 +15,21 @@ namespace RolesDemo.Blazor.Pages
         private readonly string saveUrl = "https://localhost:44365/api/app/bigfile/Save";
         private readonly string removeUrl = "https://localhost:44365/api/app/bigfile/Remove";
 
-
+        public void OnSuccess(SuccessEventArgs args)
+        {
+            try
+            {
+                //args.Response.Headers is always empty!
+                var customHeader = args.Response.Headers.Split(new char[] { '\n' })[1]; // To split the response header values 
+                var key = customHeader.Split(new Char[] { ':' })[0]; // To get the key pair of provided custom data in header 
+                var value = customHeader.Split(new Char[] { ':' })[1].Trim(); // To get the value for the key pair of provided custom data in header 
+            }
+            catch (Exception ex)
+            {
+                // we end up here!
+                throw;
+            }
+        }
         private async Task OnFileUploadChanged(FileChangedEventArgs e)
         {
             if (e.Files != null && e.Files.Length == 1)
