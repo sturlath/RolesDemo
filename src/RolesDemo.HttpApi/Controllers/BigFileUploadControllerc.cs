@@ -54,11 +54,13 @@ namespace RolesDemo.Controllers
             try
             {
                 Response.Headers.Add("CustomHeader", "someContent");
+                Response.ContentType = "THIS IS RETURNED!!";
             }
             catch (Exception e)
             {
                 Response.Clear();
                 Response.StatusCode = 204;
+                
                 Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = "File failed to upload";
                 Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = e.Message;
             }
