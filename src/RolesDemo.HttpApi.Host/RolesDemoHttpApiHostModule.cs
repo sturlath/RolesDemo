@@ -172,6 +172,7 @@ namespace RolesDemo
                                 .ToArray()
                         )
                         .WithAbpExposedHeaders()
+                        .WithExposedHeaders("customheader")
                         .SetIsOriginAllowedToAllowWildcardSubdomains()
                         .AllowAnyHeader()
                         .AllowAnyMethod()

@@ -17,15 +17,15 @@ namespace RolesDemo.Blazor.Pages
 
         public void OnSuccess(SuccessEventArgs args)
         {
-            //args.Response.Headers is always missing the CustomHeader but does contain "THIS IS RETURNED!!" in the content-type!
-            var customHeader = args.Response.Headers.Split(new char[] { '\n' })[1]; // To split the response header values 
+            var customHeaders = args.Response.Headers.Split(new char[] { '\n' }); // To split the response header values 
 
-            //customHeader is never returned...there is just one header included..
-
-            if (!string.IsNullOrWhiteSpace(customHeader))
+            foreach (var header in customHeaders)
             {
-                var key = customHeader.Split(new Char[] { ':' })[0]; // To get the key pair of provided custom data in header 
-                var value = customHeader.Split(new Char[] { ':' })[1].Trim(); // To get the value for the key pair of provided custom data in header  
+                if (!string.IsNullOrWhiteSpace(header))
+                {
+                    var key = header.Split(new Char[] { ':' })[0]; 
+                    var value = header.Split(new Char[] { ':' })[1].Trim(); 
+                } 
             }
         }
         private async Task OnFileUploadChanged(FileChangedEventArgs e)

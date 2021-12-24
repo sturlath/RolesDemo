@@ -47,13 +47,11 @@ namespace RolesDemo.Controllers
         }
 
         [HttpPost("[action]")]
-        //[Produces("application/json")]
-        //[Consumes("multipart/form-data")]
-        public virtual async Task Save(IList<IRemoteStreamContent> UploadRecording) //this parameter needs to be the same as ID in Index.razor! Syncfusion has updated their docs!
+        public virtual async Task Save(IList<IRemoteStreamContent> UploadRecording) 
         {
             try
             {
-                Response.Headers.Add("CustomHeader", "someContent");
+                Response.Headers.Add("CustomHeader", "someContent"); //<--needed to allow this in cors like  .WithExposedHeaders("customheader")
                 Response.ContentType = "THIS IS RETURNED!!";
             }
             catch (Exception e)
